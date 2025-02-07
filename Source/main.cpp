@@ -25,11 +25,11 @@ int main(int argc, char* argv[]) {
     Remove->add_option("PCKG", ToRemove, "Package to remove.")
           ->required();
 
-    Remove->callback([&] {
+    Remove->callback([&]() {
 
     });
 
-    InstallAll->callback([&] {
+    InstallAll->callback([&]() {
         nlohmann::json Packages = JSGET::GetCurrentApps();
         for (const auto &i : Packages.items()) {
             auto *K = &i.key();
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     Install->add_option("PCKG", ToInstall, "Package to install.")
            ->required();
     
-    Install->callback([&]{
+    Install->callback([&]() {
 
     });
 
