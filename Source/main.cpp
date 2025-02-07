@@ -7,6 +7,7 @@
 
 #include <CLI/CLI.hpp>
 #include <fstream>
+#include <print>
 
 int main(int argc, char* argv[]) {
     //std::cout << std::filesystem::current_path();
@@ -30,10 +31,10 @@ int main(int argc, char* argv[]) {
     });
 
     InstallAll->callback([&]() {
-        nlohmann::json Packages = JSGET::GetCurrentApps();
+        nlohmann::json Packages = JSGET::GetCurrentApps(); // Tools
         for (const auto &i : Packages.items()) {
-            auto *K = &i.key();
-            auto *V = &i.value();
+            auto *K = &i.key(); // Tool
+            auto *V = &i.value(); // Version
 
 
         };
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
     CLI11_PARSE(CApp, argc, argv);
 
     if (argc == 1) {
-        std::cout << CApp.help() << std::endl;
+        std::print("{}", CApp.help());
     }
 
     return 1;
