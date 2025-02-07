@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
     auto InstallAll = CApp.add_subcommand("InstallAll", "Install every package on dirjs.json");
     auto Remove = CApp.add_subcommand("Remove", "Remove Package");
-    auto Install = CApp.add_subcommand("Install", "Install an app.");
+    auto Install = CApp.add_subcommand("Install", "Install Package.");
 
     Remove->add_option("PCKG", ToRemove, "Package to remove.")
           ->required();
