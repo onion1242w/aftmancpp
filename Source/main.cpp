@@ -5,6 +5,7 @@
 
 #include "ZipPP/ZZ.hpp"
 
+#include <cpr/cpr.h>
 #include <CLI/CLI.hpp>
 #include <fstream>
 #include <print>
@@ -35,7 +36,6 @@ int main(int argc, char* argv[]) {
         for (const auto &i : Packages.items()) {
             auto *K = &i.key(); // Tool
             auto *V = &i.value(); // Version
-
 
         };
         
