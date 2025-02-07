@@ -16,10 +16,11 @@ int main(int argc, char* argv[]) {
     argv = CApp.ensure_utf8(argv);
 
     std::string ToRemove;
-
+    std::string ToInstall;
 
     auto InstallAll = CApp.add_subcommand("InstallAll", "Install every package on dirjs.json");
     auto Remove = CApp.add_subcommand("Remove", "Remove Package");
+    auto Install = CApp.add_subcommand("Install", "Install an app.");
 
     Remove->add_option("PCKG", ToRemove, "Package to remove.")
           ->required();
@@ -27,7 +28,6 @@ int main(int argc, char* argv[]) {
     Remove->callback([&] {
 
     });
-
 
     InstallAll->callback([&] {
         nlohmann::json Packages = JSGET::GetCurrentApps();
@@ -38,6 +38,13 @@ int main(int argc, char* argv[]) {
 
         };
         
+    });
+
+    Install->add_option("PCKG", ToInstall, "Package to install.")
+           ->required();
+    
+    Install->callback([&]{
+
     });
 
     CLI11_PARSE(CApp, argc, argv);

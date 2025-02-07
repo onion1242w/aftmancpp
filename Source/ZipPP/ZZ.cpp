@@ -1,43 +1,32 @@
 #include "ZZ.hpp"
 
-int ZipP::UnZip(std::string ZipFilePath, std::string TarFolderPath) {
-    mz_zip_archive zARCH;
-    memset(&zARCH, 0, sizeof(zARCH));
+Result<ZZ> ZZ::init(std::string ZipFilePath) noexcept {
+    ZZ Cur;
 
-    if (!mz_zip_reader_init_file(&zARCH, ZipFilePath.c_str(), 0)) {
-        std::cout << "Failed to open zip file.\n";
-        return -1;
+    if (!mz_zip_reader_init_file(&Cur.zARCH, ZipFilePath.c_str(), 0)) {
+        return std::unexpected("Failed to open zip.");
     }
 
-    int NumF = (int)mz_zip_reader_get_num_files(&zARCH);
+    Cur.NumF = (int)mz_zip_reader_get_num_files(&Cur.zARCH);
 
-    mz_zip_archive_file_stat FStat;
+    return Cur;
+}
 
-    for (int i = 0; i < NumF; i++) {
-        if (!mz_zip_reader_file_stat(&zARCH, i, &FStat)) {
-            std::cout << "Failed to get file stat.\n";
-            return -1;
-        }
-
-        if (mz_zip_reader_is_file_a_directory(&zARCH, i)) {
-            std::filesystem::path dir(TarFolderPath + FStat.m_filename);
-            std::filesystem::create_directories(dir.parent_path());
-            continue;
+Result<bool> ZZ::Unzip() {
+    for (int i = 0; i < this->NumF; i++) {
+        if (!mz_zip_reader_file_stat(&this->zARCH, i, &this->FStat)) {
+            return std::unexpected("Cant read file stat.");
         }
 
         std::filesystem::path file_out(FStat.m_filename);
 
-        std::cout << file_out << std::endl;
-
-        if (!mz_zip_reader_extract_to_file(&zARCH, i, file_out.filename().string().c_str(), 0)) {
-            mz_zip_reader_end(&zARCH);
-            return -1;
+        if (!mz_zip_reader_extract_to_file(&this->zARCH, i, file_out.filename().string().c_str(), 0)) {
+            mz_zip_reader_end(&this->zARCH);
+            return std::unexpected("Cant extract to file.");
         }
     }
-    
-    if (!mz_zip_reader_end(&zARCH)) {
-        return -1;
-    }
 
-    return 1;
+    mz_zip_reader_end(&this->zARCH);
+
+    return true;
 }
