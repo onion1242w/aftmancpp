@@ -1,5 +1,4 @@
-#include "GithubContent/GHFinder.hpp"
-#include "GithubContent/GHInstaller.hpp"
+#include "GithubContent/GHMain.hpp"
 
 #include "JsonF/JSFileGet.hpp"
 
@@ -48,11 +47,18 @@ int main(int argc, char* argv[]) {
 
     });
 
-    CLI11_PARSE(CApp, argc, argv);
+    //CLI11_PARSE(CApp, argc, argv);
 
-    if (argc == 1) {
-        std::print("{}", CApp.help());
+    try {
+        CApp.parse(argc, argv);
+    } catch(const CLI::CallForHelp &e) {
+        CApp.exit(CLI::CallForHelp());
     }
+    
+
+    /*if (argc == 1) {
+        std::print("{}", CApp.help());
+    }*/
 
     return 1;
 }
