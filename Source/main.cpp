@@ -4,6 +4,7 @@
 
 #include "ZipPP/ZZ.hpp"
 
+#include <iostream>
 #include <cpr/cpr.h>
 #include <CLI/CLI.hpp>
 #include <fstream>
@@ -47,18 +48,12 @@ int main(int argc, char* argv[]) {
 
     });
 
-    //CLI11_PARSE(CApp, argc, argv);
-
-    try {
-        CApp.parse(argc, argv);
-    } catch(const CLI::CallForHelp &e) {
-        CApp.exit(CLI::CallForHelp());
-    }
+    CLI11_PARSE(CApp, argc, argv);
     
 
-    /*if (argc == 1) {
+    if (argc == 1) {
         std::print("{}", CApp.help());
-    }*/
+    }
 
     return 1;
 }
