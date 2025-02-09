@@ -8,7 +8,7 @@
 #include <cpr/cpr.h>
 #include <CLI/CLI.hpp>
 #include <fstream>
-#include <print>
+#include "print"
 
 int main(int argc, char* argv[]) {
     //std::cout << std::filesystem::current_path();
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
     
 
     if (argc == 1) {
-        std::print("{}", CApp.help());
+        std::cout << CApp.help() << std::endl;
     }
 
     return 1;
