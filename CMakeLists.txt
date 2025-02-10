@@ -4,7 +4,9 @@ project(cman VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --target=x86_64-pc-windows-gnu")
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --target=x86_64-pc-windows-gnu")
 
 file(GLOB_RECURSE GSOURCES "Source/GithubContent/*.cpp" "Source/GithubContent/*.hpp")
 file(GLOB_RECURSE JSOURCES "Source/JsonF/*.cpp" "Source/JsonF/*.hpp")
@@ -25,17 +27,14 @@ add_library(
     ${ZSOURCES}
 )
 
-
-add_executable(cman Source/main.cpp)
-
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "C:/Users/omhak/vcpkg/installed/x64-mingw-static")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "$ENV{USERPROFILE}/vcpkg/installed/x64-mingw-static")
 
 find_package(cpr CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(CLI11 CONFIG REQUIRED)
 find_package(miniz CONFIG REQUIRED)
 
-add_compile_options(-std=c++23)
+add_executable(cman Source/main.cpp)
 
 target_link_libraries(ZipPP PRIVATE nlohmann_json::nlohmann_json miniz::miniz)
 target_link_libraries(GContent PRIVATE cpr::cpr nlohmann_json::nlohmann_json)

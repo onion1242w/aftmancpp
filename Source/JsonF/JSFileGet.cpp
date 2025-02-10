@@ -1,5 +1,9 @@
 #include "JSFileGet.hpp"
 
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
+
 nlohmann::json JSGET::GetCurrentApps() {
     std::ifstream TARF(std::filesystem::current_path().string() + "/" + "dirjs.json");
     nlohmann::json CurJS;

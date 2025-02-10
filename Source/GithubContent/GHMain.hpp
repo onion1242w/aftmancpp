@@ -2,8 +2,8 @@
 
 #include <cpr/cpr.h>
 #include <fstream>
-#include <iostream>
 #include <filesystem>
+#include <iostream>
 
 enum CBools {
     GHIsFine,

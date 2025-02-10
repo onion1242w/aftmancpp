@@ -4,11 +4,9 @@
 
 #include "ZipPP/ZZ.hpp"
 
-#include <iostream>
 #include <cpr/cpr.h>
 #include <CLI/CLI.hpp>
-#include <fstream>
-#include "print"
+#include <iostream>
 
 int main(int argc, char* argv[]) {
     //std::cout << std::filesystem::current_path();
@@ -49,7 +47,6 @@ int main(int argc, char* argv[]) {
     });
 
     CLI11_PARSE(CApp, argc, argv);
-    
 
     if (argc == 1) {
         std::cout << CApp.help() << std::endl;
